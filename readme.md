@@ -8,6 +8,18 @@ Order imports into blocks defined in config file
 go install github.com/sabahtalateh/importblocks@latest
 ```
 
+You may also need to modify your `~/.[bash|zsh|fish..]rc` with 
+
+```shell
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:$GOBIN
+```
+
+After modification run 
+```shell
+source ~/.[bash|zsh|fish..]rc
+```
+
 ## Syntax
 ```
 importblocks [-config ..] [-lookup ..] [path ..]
