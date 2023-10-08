@@ -15,7 +15,7 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:$GOBIN
 ```
 
-After modification run 
+So modifications to take effect run
 ```shell
 source ~/.[bash|zsh|fish..]rc
 ```
