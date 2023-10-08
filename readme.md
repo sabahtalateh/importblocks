@@ -63,7 +63,7 @@ Then run program from your module dir
 importblocks -config imports.yaml ./...
 ```
 
-Here is the result. Imports within block sorted alphabetically
+Imports will be grouped by blocks. Imports within block sorted alphabetically
 
 ```go
 import (
