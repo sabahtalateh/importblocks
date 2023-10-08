@@ -14,7 +14,7 @@ importblocks [-config ..] [-lookup ..] [path ..]
 ```
 
 - `-config` **relative** or **absolute** path to config file
-- `-lookup` lookup file name
+- `-lookup` lookup config file name
 - `path` file or directory **relative** or **absolute** path. If ends with `/...` then inner files and dirs will be formatted recursively. Ex: `code/go/project1/...`, `./...`. Multiple paths may be specified
 
 ## Quickstart
