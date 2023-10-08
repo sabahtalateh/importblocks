@@ -1,7 +1,6 @@
 package internal
 
 import (
-	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -56,12 +55,11 @@ func (f *Formatter) Dir(dir string) {
 	}
 }
 
-func (f *Formatter) File(file string) {
-	if !strings.HasSuffix(file, ".go") {
+func (f *Formatter) File(path string) {
+	if !strings.HasSuffix(path, ".go") {
 		return
 	}
 
-	fileShort := strings.TrimPrefix(file, f.wd+string(os.PathSeparator))
-	fmt.Println(fileShort)
-	f.o.OrderImports(file)
+	fileShort := strings.TrimPrefix(path, f.wd+string(os.PathSeparator))
+	f.o.OrderImports(path, fileShort)
 }

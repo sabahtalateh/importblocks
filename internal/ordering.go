@@ -2,11 +2,13 @@ package internal
 
 import (
 	"bytes"
+	"crypto/sha256"
 	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
+	"io"
 	"os"
 	"sort"
 	"strconv"
@@ -123,11 +125,13 @@ func (o *Ordering) Buckets() int {
 	return max + 1
 }
 
-func (o *Ordering) OrderImports(file string) {
+func (o *Ordering) OrderImports(path, fileShort string) {
+	startHash := fileHash(path)
+
 	fset := token.NewFileSet()
-	f, err := parser.ParseFile(fset, file, nil, parser.ParseComments)
+	f, err := parser.ParseFile(fset, path, nil, parser.ParseComments)
 	if err != nil {
-		fmt.Println("skip. error parsing")
+		fmt.Printf("skip. error parsing: %s\n", fileShort)
 		return
 	}
 
@@ -222,9 +226,9 @@ func (o *Ordering) OrderImports(file string) {
 		return
 	}
 
-	bb, err := os.ReadFile(file)
+	bb, err := os.ReadFile(path)
 	if err != nil {
-		fmt.Println("skip. error reading")
+		fmt.Printf("skip. error reading: %s\n", fileShort)
 		return
 	}
 
@@ -239,8 +243,29 @@ func (o *Ordering) OrderImports(file string) {
 	lines = append(lines, ")")
 	lines = append(lines, tail...)
 
-	err = os.WriteFile(file, []byte(strings.Join(lines, "\n")), os.ModePerm)
+	err = os.WriteFile(path, []byte(strings.Join(lines, "\n")), os.ModePerm)
 	if err != nil {
-		fmt.Println("skip. error writing")
+		fmt.Printf("skip. error writing: %s\n", fileShort)
 	}
+
+	endHash := fileHash(path)
+
+	if startHash != endHash {
+		fmt.Println(fileShort)
+	}
+}
+
+func fileHash(path string) string {
+	f, err := os.Open(path)
+	if err != nil {
+		return ""
+	}
+	defer f.Close()
+
+	h := sha256.New()
+	if _, err = io.Copy(h, f); err != nil {
+		return ""
+	}
+
+	return fmt.Sprintf("%x", h.Sum(nil))
 }
