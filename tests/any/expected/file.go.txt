@@ -4,7 +4,8 @@ import (
 	"a/b/c1"
 	"a/b/c2"
 
-	"x/y/z"
+	"x/y/z1"
+	"x/y/z2"
 
 	"os"
 )

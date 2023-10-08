@@ -1,8 +1,9 @@
 package test1
 
 import(
-	"a/b/c1"
 	"a/b/c2"
-	"x/y/z"
 	"os"
+	"x/y/z2"
+	"a/b/c1"
+	"x/y/z1"
 )
