@@ -1,0 +1,8 @@
+package test1
+
+import (
+	"x/y/z"
+	"a/b/c"
+	"os"
+	"a/b"
+)

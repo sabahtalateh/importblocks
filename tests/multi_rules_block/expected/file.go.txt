@@ -1,0 +1,15 @@
+package test1
+
+import (
+	"a/b/c1"
+	"a/b/c2"
+	"a/b/c3"
+	"a/b/c4"
+	"x/y/z100"
+	"x/y/z200"
+
+	"fmt"
+	"os"
+
+	"foo/bar"
+)

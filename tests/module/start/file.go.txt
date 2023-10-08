@@ -1,0 +1,13 @@
+package test1
+
+import(
+	"github.com/a/b"
+	"os"
+	"x/y/z"
+	"github.com/sabahtalateh/importblocks/b"
+	"fmt"
+	"math"
+	"github.com/sabahtalateh/importblocks/c"
+	"github.com/sabahtalateh/importblocks/a"
+	"bytes"
+)

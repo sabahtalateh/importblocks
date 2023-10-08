@@ -1,0 +1,5 @@
+importblocks:
+  - ["a/b", "x/y"]
+  - [ "*" ]
+  - [ "!std" ]
+

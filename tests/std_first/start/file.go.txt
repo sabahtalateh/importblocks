@@ -1,0 +1,6 @@
+package test1
+
+import(
+	"github.com/a/b"
+	"os"
+)

@@ -1,0 +1,19 @@
+package test1
+
+import(
+	"os"
+	"a/b/c2"
+	"fmt"
+)
+
+import "x/y/z100"
+
+
+import (
+	"a/b/c3"
+	"x/y/z200"
+)
+
+import "a/b/c1"
+
+func Hello() {}
