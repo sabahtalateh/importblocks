@@ -26,7 +26,7 @@ importblocks [-config ..] [-lookup ..] [path ..]
 ```
 
 - `-config` **relative** or **absolute** path to config file. (see: [Config File](#config-file))
-- `-lookup` lookup config file name. (see: [Lookup config file](#lookup-config-file))
+- `-lookup` lookup config file name. (see: [Lookup Config File](#lookup-config-file))
 - `path` file or directory **relative** or **absolute** path. If ends with `/...` then inner files and dirs will be formatted recursively. Ex: `code/go/project1/...`, `./...`. Multiple paths may be specified
 
 ## Quickstart
@@ -91,7 +91,7 @@ Config file is `yaml` with 2-dimensional array of specifiers where specifier can
 - Any string. Package prefix to mention package path starting with it
 - `*` to mention any package path which not specified by other specifiers
 
-## Lookup config file
+## Lookup Config File
 
 **Multiple config files may exist on different levels of directories hierarchy.** With this feature you may have common config for different projects inside one directory and specific config for each project. **Nested config content will be appended to topmost**
 
