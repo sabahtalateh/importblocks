@@ -22,11 +22,12 @@ source ~/.[bash|zsh|fish..]rc
 
 ## Syntax
 ```
-importblocks [-config ..] [-lookup ..] [path ..]
+importblocks [-config ..] [-lookup ..] [-v] [path ..]
 ```
 
 - `-config` **relative** or **absolute** path to config file. (see: [Config File](#config-file))
 - `-lookup` lookup config file name. (see: [Lookup Config File](#lookup-config-file))
+- `-v` verbose mode
 - `path` file or directory **relative** or **absolute** path. If ends with `/...` then inner files and dirs will be formatted recursively. Ex: `code/go/project1/...`, `./...`. Multiple paths may be specified
 
 ## Quickstart
