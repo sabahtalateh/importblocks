@@ -43,7 +43,7 @@ func ReadConfig(path string, verbose bool) (Config, error) {
 	return c, nil
 }
 
-func Lookup(dir, fileName string) Config {
+func Lookup(dir, fileName string, verbose bool) Config {
 	var (
 		bb      = Blocks{}
 		prevDir = ""
@@ -57,7 +57,9 @@ func Lookup(dir, fileName string) Config {
 		dirBlocks := blocksFromFile(lookupFile)
 		if len(dirBlocks) != 0 {
 			bb = append(dirBlocks, bb...)
-			fmt.Printf("lookup: %s\n", lookupFile)
+			if verbose {
+				fmt.Printf("lookup: %s\n", lookupFile)
+			}
 		}
 		prevDir = dir
 		dir = filepath.Dir(dir)
