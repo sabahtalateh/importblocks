@@ -117,7 +117,7 @@ importblocks:
 ```yaml
 # root/project1/imports.yaml
 importblocks:
-  - [ "monorepo/project1" ]
+  - [ "root/project1" ]
 ```
 
 Then
@@ -131,6 +131,6 @@ $ importblocks -lookup imports.yaml ./...
 importblocks:
   - [ "!std" ]
   - [ "*" ]
-  - [ "monorepo/project1" ]
+  - [ "root/project1" ]
 ```
 
