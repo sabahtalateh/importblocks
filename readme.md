@@ -41,6 +41,13 @@ importblocks:
 
 ## Quickstart
 
+After installation run this command on your project and see the result 
+```shell
+importblocks ./...
+```
+
+## A bit longer start
+
 Suppose you have
 
 ```go
@@ -93,7 +100,7 @@ import (
 )
 ```
 
-## Config file
+## Config File
 
 Config file is `yaml` with 2-dimensional array of specifiers where specifier can be one of
 - `!std` to mention any standard library package
