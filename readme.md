@@ -25,8 +25,8 @@ source ~/.[bash|zsh|fish..]rc
 importblocks [-config ..] [-lookup ..] [path ..]
 ```
 
-- `-config` **relative** or **absolute** path to config file
-- `-lookup` lookup config file name
+- `-config` **relative** or **absolute** path to config file. (see: [Config File](#config-file))
+- `-lookup` lookup config file name. (see: [Lookup config file](#lookup-config-file))
 - `path` file or directory **relative** or **absolute** path. If ends with `/...` then inner files and dirs will be formatted recursively. Ex: `code/go/project1/...`, `./...`. Multiple paths may be specified
 
 ## Quickstart
