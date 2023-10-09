@@ -58,7 +58,7 @@ func Lookup(dir, fileName string, verbose bool) Config {
 		if len(dirBlocks) != 0 {
 			bb = append(dirBlocks, bb...)
 			if verbose {
-				fmt.Printf("lookup: %s\n", lookupFile)
+				fmt.Printf("lookup file: %s\n", lookupFile)
 			}
 		}
 		prevDir = dir
@@ -68,6 +68,11 @@ func Lookup(dir, fileName string, verbose bool) Config {
 	if len(bb) == 0 {
 		fmt.Println("empty config after lookup. default config will be used")
 		bb = DefaultBlocks
+	}
+
+	if verbose {
+		out, _ := yaml.Marshal(Config{Blocks: bb})
+		fmt.Printf("lookup merged config: \n%s\n", string(out))
 	}
 
 	return Config{Blocks: bb}

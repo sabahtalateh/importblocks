@@ -70,6 +70,7 @@ func Test(t *testing.T) {
 			if test.lookup != "" {
 				args = append(args, "-lookup", test.lookup)
 			}
+			args = append(args, "-v")
 			args = append(args, test.args...)
 
 			cmd := exec.Command(executable, args...)
