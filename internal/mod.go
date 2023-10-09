@@ -10,7 +10,7 @@ import (
 
 func modPath(dir string) string {
 	if dir == "/" || dir == "." || dir == "" {
-		fmt.Println("skip !module. module not found")
+		fmt.Println("skip !mod. module not found")
 		return "*"
 	}
 
@@ -19,16 +19,15 @@ func modPath(dir string) string {
 		return modPath(filepath.Dir(dir))
 	}
 	if err != nil {
-		fmt.Printf("skip !module. error reading: %s\n", filepath.Join(dir, "go.mod"))
+		fmt.Printf("skip !mod. error reading: %s\n", filepath.Join(dir, "go.mod"))
 		return "*"
 	}
 
 	mod, err := modfile.Parse("go.mod", bb, nil)
 	if err != nil {
-		fmt.Printf("skip !module. error parsing: %s\n", filepath.Join(dir, "go.mod"))
+		fmt.Printf("skip !mod. error parsing: %s\n", filepath.Join(dir, "go.mod"))
 		return "*"
 	}
 
-	fmt.Printf("module set to %s\n", mod.Module.Mod.Path)
 	return mod.Module.Mod.Path
 }
