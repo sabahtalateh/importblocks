@@ -2,18 +2,17 @@ package internal
 
 import (
 	"bytes"
-	"crypto/sha256"
 	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/printer"
 	"go/token"
-	"io"
 	"os"
 	"sort"
 	"strconv"
 	"strings"
 
+	"golang.org/x/exp/slices"
 	"golang.org/x/tools/go/packages"
 )
 
@@ -126,8 +125,6 @@ func (o *Ordering) Buckets() int {
 }
 
 func (o *Ordering) OrderImports(path, fileShort string) {
-	startHash := fileHash(path)
-
 	fset := token.NewFileSet()
 	f, err := parser.ParseFile(fset, path, nil, parser.ParseComments)
 	if err != nil {
@@ -168,7 +165,7 @@ func (o *Ordering) OrderImports(path, fileShort string) {
 		}
 	}
 
-	var outLines []string
+	var importsLines []string
 
 	for _, bucket := range buckets {
 		if len(bucket) == 0 {
@@ -201,28 +198,28 @@ func (o *Ordering) OrderImports(path, fileShort string) {
 				ll[i] = "\t" + ll[i]
 			}
 
-			outLines = append(outLines, ll...)
+			importsLines = append(importsLines, ll...)
 		}
-		outLines = append(outLines, "")
+		importsLines = append(importsLines, "")
 	}
 
-	// trim starting empty lines
-	for i := 0; i < len(outLines); i++ {
-		if outLines[i] != "" {
+	// trim leading empty lines
+	for i := 0; i < len(importsLines); i++ {
+		if importsLines[i] != "" {
 			break
 		}
-		outLines = outLines[i:]
+		importsLines = importsLines[i:]
 	}
 
 	// trim trailing empty lines
-	for i := len(outLines) - 1; i > -1; i-- {
-		if outLines[i] != "" {
+	for i := len(importsLines) - 1; i > -1; i-- {
+		if importsLines[i] != "" {
 			break
 		}
-		outLines = outLines[:i]
+		importsLines = importsLines[:i]
 	}
 
-	if len(outLines) == 0 {
+	if len(importsLines) == 0 {
 		return
 	}
 
@@ -233,39 +230,38 @@ func (o *Ordering) OrderImports(path, fileShort string) {
 	}
 
 	lines := strings.Split(string(bb), "\n")
+	origLines := slices.Clone(lines)
+
 	head := lines[:startImportsLine-1]
 	var tail []string
 	for i := endImportsLine; i < len(lines); i++ {
 		tail = append(tail, lines[i])
 	}
 	lines = append(head, "import (")
-	lines = append(lines, outLines...)
+	lines = append(lines, importsLines...)
 	lines = append(lines, ")")
 	lines = append(lines, tail...)
 
-	err = os.WriteFile(path, []byte(strings.Join(lines, "\n")), os.ModePerm)
-	if err != nil {
-		fmt.Printf("skip. error writing: %s\n", fileShort)
-	}
-
-	endHash := fileHash(path)
-
-	if startHash != endHash {
+	if !linesEquals(origLines, lines) {
+		err = os.WriteFile(path, []byte(strings.Join(lines, "\n")), os.ModePerm)
+		if err != nil {
+			fmt.Printf("skip. error writing: %s\n", fileShort)
+			return
+		}
 		fmt.Println(fileShort)
 	}
 }
 
-func fileHash(path string) string {
-	f, err := os.Open(path)
-	if err != nil {
-		return ""
-	}
-	defer f.Close()
-
-	h := sha256.New()
-	if _, err = io.Copy(h, f); err != nil {
-		return ""
+func linesEquals(ll1, ll2 []string) bool {
+	if len(ll1) != len(ll2) {
+		return false
 	}
 
-	return fmt.Sprintf("%x", h.Sum(nil))
+	for i := 0; i < len(ll1); i++ {
+		if ll1[i] != ll2[i] {
+			return false
+		}
+	}
+
+	return true
 }
