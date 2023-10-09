@@ -12,6 +12,7 @@ import (
 
 var configFile string
 var lookup string
+var verbose bool
 
 const lookupUsage = `file name to lookup. NOT path to file
 upwards lookup will be performed starting from current work dir
@@ -48,7 +49,10 @@ importblocks:
 
 func init() {
 	flag.StringVar(&configFile, "config", "", "config file path")
+	flag.StringVar(&configFile, "c", "", "shorthand for config")
 	flag.StringVar(&lookup, "lookup", "", lookupUsage)
+	flag.StringVar(&lookup, "l", "", "shorthand for lookup")
+	flag.BoolVar(&verbose, "v", false, "verbose mode")
 }
 
 func isHelp(arg string) bool {
@@ -99,7 +103,7 @@ func main() {
 	ordering, err := internal.NewOrdering(conf(wd), wd)
 	check(err)
 
-	formatter := internal.NewFormatter(ordering, wd)
+	formatter := internal.NewFormatter(ordering, wd, verbose)
 
 	for _, arg := range args {
 		if strings.HasSuffix(arg, "...") {

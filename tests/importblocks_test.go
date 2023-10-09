@@ -40,7 +40,7 @@ func Test(t *testing.T) {
 		{dir: "comments", config: "importblocks.yaml", args: []string{"./..."}},
 		{dir: "named_imports", config: "importblocks.yaml", args: []string{"./..."}},
 		{dir: "default_config_if_no_config_passed", args: []string{"./..."}},
-		{dir: "lookup", lookup: "imports.yaml", args: []string{"./..."}, cmdDir: filepath.Join("work", "dir1", "dir2")},
+		{dir: "lookup", lookup: "lookup.yaml", args: []string{"./..."}, cmdDir: filepath.Join("work", "dir1", "dir2")},
 	}
 
 	testsDir, err := os.Getwd()
