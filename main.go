@@ -100,7 +100,7 @@ func main() {
 	wd, err := os.Getwd()
 	check(err)
 
-	ordering, err := internal.NewOrdering(conf(wd), wd)
+	ordering, err := internal.NewOrdering(conf(wd, verbose), wd)
 	check(err)
 
 	formatter := internal.NewFormatter(ordering, wd, verbose)
@@ -122,9 +122,11 @@ func main() {
 	}
 }
 
-func conf(wd string) internal.Config {
+func conf(wd string, verbose bool) internal.Config {
 	if configFile == "" && lookup == "" {
-		fmt.Println("nor -config or -lookup passed. default config will be used")
+		if verbose {
+			fmt.Println("nor -config or -lookup passed. default config will be used")
+		}
 		return internal.Config{Blocks: internal.DefaultBlocks}
 	}
 
