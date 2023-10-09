@@ -20,7 +20,7 @@ type Config struct {
 
 type Blocks [][]string
 
-func ReadConfig(path string) (Config, error) {
+func ReadConfig(path string, verbose bool) (Config, error) {
 	var (
 		c   Config
 		err error
@@ -34,6 +34,10 @@ func ReadConfig(path string) (Config, error) {
 	err = yaml.Unmarshal(bb, &c)
 	if err != nil {
 		return Config{}, err
+	}
+
+	if verbose {
+		fmt.Printf("config file found: %s\n", path)
 	}
 
 	return c, nil

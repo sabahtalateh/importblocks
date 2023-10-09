@@ -136,7 +136,7 @@ func conf(wd string, verbose bool) internal.Config {
 	)
 
 	if configFile != "" {
-		config, err = internal.ReadConfig(configFile)
+		config, err = internal.ReadConfig(configFile, verbose)
 		check(err)
 	}
 
