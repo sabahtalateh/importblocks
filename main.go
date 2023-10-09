@@ -141,7 +141,7 @@ func conf(wd string, verbose bool) internal.Config {
 	}
 
 	if lookup != "" {
-		config = internal.Lookup(wd, lookup)
+		config = internal.Lookup(wd, lookup, verbose)
 	}
 
 	return config
