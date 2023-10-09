@@ -32,7 +32,6 @@ importblocks [-config ..] [-lookup ..] [-v] [path ..]
 
 **NOTE:** if no `-config` or `-lookup` passed then default config will be used which is suitable for most cases
 
-Default config: 
 ```yaml
 importblocks:
   - [ "!std" ]
