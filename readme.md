@@ -30,6 +30,16 @@ importblocks [-config ..] [-lookup ..] [-v] [path ..]
 - `-v` verbose mode
 - `path` file or directory **relative** or **absolute** path. If ends with `/...` then inner files and dirs will be formatted recursively. Ex: `code/go/project1/...`, `./...`. Multiple paths may be specified
 
+**NOTE:** if no `-config` or `-lookup` passed then default config will be used which is suitable for most cases
+
+Default config: 
+```yaml
+importblocks:
+  - [ "!std" ]
+  - [ "*" ]
+  - [ "!mod" ]
+```
+
 ## Quickstart
 
 Suppose you have

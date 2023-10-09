@@ -1,4 +1,0 @@
-importblocks:
-  - [ "!std" ]
-  - [ "*" ]
-  - [ "!mod" ]
