@@ -1,6 +1,6 @@
 # Import Blocks
 
-Order imports into blocks defined in config file
+Order imports into blocks
 
 ## Installation
 
