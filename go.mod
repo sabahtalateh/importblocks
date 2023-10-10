@@ -3,6 +3,7 @@ module github.com/sabahtalateh/importblocks
 go 1.20
 
 require (
+	github.com/sabahtalateh/mod v1.0.0
 	github.com/stretchr/testify v1.8.4
 	golang.org/x/exp v0.0.0-20231006140011-7918f672742d
 	golang.org/x/mod v0.13.0

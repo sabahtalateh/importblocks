@@ -1,8 +1,11 @@
 package internal
 
 import (
+	"errors"
+	"fmt"
 	"strings"
 
+	"github.com/sabahtalateh/mod"
 	"golang.org/x/tools/go/packages"
 )
 
@@ -40,7 +43,15 @@ func NewOrdering(c Config, wd string) (*Ordering, error) {
 			}
 
 			if v == "!mod" {
-				v = modPath(wd)
+				v, err = modPath(wd)
+				if err != nil {
+					if errors.Is(err, mod.ErrNotFound) {
+						fmt.Printf("skip !mod. directory not resides within module: %s", wd)
+					} else {
+						fmt.Printf("skip !mod: %s", err)
+					}
+					continue
+				}
 			}
 
 			if v == "*" {

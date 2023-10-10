@@ -1,33 +1,27 @@
 package internal
 
 import (
-	"fmt"
 	"os"
-	"path/filepath"
 
+	"github.com/sabahtalateh/mod"
 	"golang.org/x/mod/modfile"
 )
 
-func modPath(dir string) string {
-	if dir == "/" || dir == "." || dir == "" {
-		fmt.Println("skip !mod. module not found")
-		return "*"
-	}
-
-	bb, err := os.ReadFile(filepath.Join(dir, "go.mod"))
-	if os.IsNotExist(err) {
-		return modPath(filepath.Dir(dir))
-	}
+func modPath(dir string) (string, error) {
+	gmp, err := mod.ModFilePath(dir)
 	if err != nil {
-		fmt.Printf("skip !mod. error reading: %s\n", filepath.Join(dir, "go.mod"))
-		return "*"
+		return "", err
 	}
 
-	mod, err := modfile.Parse("go.mod", bb, nil)
+	bb, err := os.ReadFile(gmp)
 	if err != nil {
-		fmt.Printf("skip !mod. error parsing: %s\n", filepath.Join(dir, "go.mod"))
-		return "*"
+		return "", err
 	}
 
-	return mod.Module.Mod.Path
+	modFile, err := modfile.Parse("go.mod", bb, nil)
+	if err != nil {
+		return "", err
+	}
+
+	return modFile.Module.Mod.Path, nil
 }
